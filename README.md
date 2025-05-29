@@ -121,12 +121,6 @@ This project is inspired by the original [Redis](https://redis.io) server and de
 
 ---
 
-## 📄 License
-
-MIT License
-
----
-
 ## 🙌 Contributing
 
 Pull requests are welcome! If you have ideas, suggestions, or bug reports, please open an issue or contribute directly.

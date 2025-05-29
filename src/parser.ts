@@ -9,7 +9,7 @@ export function parseRESP(buffer:Buffer): RESPValue | null{
     const args: string[] = []
 
     for(let i=2; i <lines.length; i+=2){
-        args.push(lines[1]);
+        args.push(lines[i]);
     }
 
     return args.length === argCount ? args : null
