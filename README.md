@@ -21,7 +21,7 @@ SimpleRedis supports basic commands (`SET`, `GET`, `DEL`, `EXPIRE`, `TTL`), a cu
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/simple-redis.git
+git clone https://github.com/aylonc22/simple-redis.git
 cd simple-redis
 npm install
 ```
