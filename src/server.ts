@@ -1,5 +1,6 @@
 import net from 'net';
 import { parseRESP } from './parser';
+import { handleCommand } from './commands';
 
 const PORT = 6379;
 
@@ -13,19 +14,12 @@ const server = net.createServer((socket) => {
         socket.write('-ERR invalid conmad\r\n');
         return;
     }
+   
+    const respone = handleCommand(args);
 
-    const commad = args[0].toUpperCase();
+    socket.write(respone);
+    
 
-    switch (commad) {
-        case 'PING':
-            socket.write('+PONG\r\n');
-            break;
-    
-        default:
-            socket.write(`-ERR unkown command: ${commad}\r\n`);
-            break;
-    }
-    
   });
 
   socket.on('end', () => {
