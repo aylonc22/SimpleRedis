@@ -1,0 +1,20 @@
+{
+  "name": "simpleredis",
+  "version": "1.0.0",
+  "description": "A Redis-like in-memory key-value store built from scratch using TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.24",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  }
+}
