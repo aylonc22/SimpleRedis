@@ -1,4 +1,6 @@
-const store = new Map<string,string>();
+import { MemoryStore } from "./store";
+
+const store = new MemoryStore()
 export function handleCommand(args: string[]):string{
      const commad = args[0].toUpperCase();
 
@@ -18,7 +20,7 @@ export function handleCommand(args: string[]):string{
             if(args.length < 2) return '-ERR wrong number of arguments for GET\r\n'
             
             const value = store.get(args[1]);
-            return value !== undefined ? `$${value.length}\r\n${value}\r\n`:'$-1\r\n';
+            return value !== undefined && value !==null ? `$${value.length}\r\n${value}\r\n`:'$-1\r\n';
         default:
           return `-ERR unknown command: ${commad}\r\n`;            
     }
