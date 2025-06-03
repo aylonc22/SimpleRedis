@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SimpleRedis Playground</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    textarea, input { width: 100%; margin: 0.5rem 0; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>SimpleRedis UI</h1>
-  <input type="text" id="command" placeholder="Enter command (e.g., SET foo bar)">
-  <button onclick="send()">Send</button>
-  <pre id="output"></pre>
+  <div class="container">
+    <nav class="sidebar">
+      <h2>Commands</h2>
+      <ul>
+        <li><a href="docs/ping.html" >PING</a></li>
+        <li><a href="docs/echo.html" >ECHO</a></li>
+        <li><a href="docs/set.html" >SET</a></li>
+        <li><a href="docs/get.html" >GET</a></li>
+        <li><a href="docs/exists.html" >EXISTS</a></li>
+      </ul>
+    </nav>
 
-  <script>
-    async function send() {
-      const command = document.getElementById('command').value;
-      const res = await fetch('/command', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ command })
-      });
-      const text = await res.text();
-      document.getElementById('output').textContent = text;
-    }
-  </script>
+    <main class="playground">
+      <h1>SimpleRedis Playground</h1>
+      <textarea id="commandInput" placeholder="Type command here..."></textarea>
+      <button onclick="sendCommand()">Send</button>
+      <pre id="response"></pre>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
