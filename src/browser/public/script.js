@@ -16,20 +16,29 @@ async function sendCommand() {
   }
 }
 
-// Auto-reload via WebSocket
-const ws = new WebSocket(`ws://${location.host}`);
+function setupWebSocket() {
+  const ws = new WebSocket(`ws://${location.host}`);
 
-ws.onmessage = (event) => {
-  if (event.data === 'reload') {
-    console.log('[LiveReload] Reloading page...');
-    location.reload();
-  }
-};
+  ws.onopen = () => {
+    console.log('[WebSocket] Connected');
+  };
 
-ws.onerror = (err) => {
-  console.warn('[WebSocket] connection error:', err);
-};
+  ws.onmessage = (event) => {
+    console.log('[WebSocket] Message received:', event.data);
+    if (event.data === 'reload') {
+      console.log('[LiveReload] Reloading page...');
+      location.reload();
+    }
+  };
 
-ws.onclose = () => {
-  console.warn('[WebSocket] connection closed');
-};
+  ws.onerror = (err) => {
+    console.warn('[WebSocket] connection error:', err);
+  };
+
+  ws.onclose = () => {
+    console.warn('[WebSocket] connection closed. Reconnecting in 1s...');
+    setTimeout(setupWebSocket, 1000); // try reconnecting
+  };
+}
+
+setupWebSocket();

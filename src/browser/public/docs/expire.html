@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PING Command - SimpleRedis Docs</title>
+  <title>EXPIRE Command - SimpleRedis Docs</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
   <main class="playground">
-    <h1>PING</h1>
-    <p><strong>Description:</strong> Returns PONG to confirm the server is alive.</p>
+    <h1>EXPIRE</h1>
+    <p><strong>Description:</strong> Sets a timeout on a key in seconds.</p>
     <pre>
-> PING
-+PONG
+> SET mykey "hello"
++OK
+> EXPIRE mykey 10
+:1
     </pre>
     <a href="../index.html">← Back to Playground</a>
   </main>
-   <script src="../script.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>

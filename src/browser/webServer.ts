@@ -64,10 +64,6 @@ server.listen(8080, () => {
 
 const wss = new WebSocketServer({ server });
 
-wss.on('connection', (ws:WebSocket) => {
-  console.log('Client connected to WS for live reload');
-});
-
 // Broadcast reload message to all clients
 function broadcastReload() {
   wss.clients.forEach((client:WebSocket) => {
