@@ -1,9 +1,10 @@
 // test/commands.test.ts
 import { describe, it, expect, beforeEach } from 'vitest';
-import { handleCommand } from '../src/commands';
+import { handleCommand, resetStore } from '../src/commands';
 
-// Reset internal store for each test (for now we assume it's a fresh state per test)
-
+beforeEach(()=>{
+   resetStore();
+})
 describe('handleCommand', () => {
   it('responds to PING', () => {
     const res = handleCommand(['PING']);
@@ -45,4 +46,17 @@ describe('handleCommand', () => {
     const res = handleCommand(['GET']);
     expect(res).toBe('-ERR wrong number of arguments for GET\r\n');
   });
+  it('handles INCR correctly', () => {
+  handleCommand(['SET', 'counter', '5']);
+  expect(handleCommand(['INCR', 'counter'])).toBe(':6\r\n');
+  expect(handleCommand(['GET', 'counter'])).toBe('$1\r\n6\r\n');
+});
+
+it('handles KEYS * correctly', () => {
+  handleCommand(['SET', 'a', '1']);
+  handleCommand(['SET', 'b', '2']);
+  const response = handleCommand(['KEYS', '*']);
+  console.log(response);
+  expect(response.startsWith('*2\r\n')).toBe(true);
+});
 });

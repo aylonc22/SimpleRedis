@@ -21,7 +21,35 @@ export function handleCommand(args: string[]):string{
             
             const value = store.get(args[1]);
             return value !== undefined && value !==null ? `$${value.length}\r\n${value}\r\n`:'$-1\r\n';
+        case 'INCR': 
+            if (args.length < 2) return '-ERR wrong number of arguments for INCR\r\n';
+
+            try {
+                const result = store.incr(args[1]);
+                return `:${result}\r\n`;
+            } catch (err) {
+                return '-ERR value is not an integer or out of range\r\n';
+            }
+        case 'KEYS':
+            if (args.length !== 2 || args[1] !== '*') {
+                return '-ERR only KEYS * is supported\r\n';
+            }
+
+            const keys = store.keys();
+            if (keys.length === 0) return '*0\r\n';
+
+            const lines = [`*${keys.length}`];
+            for (const key of keys) {
+                lines.push(`$${key.length}`, key);
+            }
+            return lines.join('\r\n') + '\r\n';
+        case 'CLEAR':
+
         default:
           return `-ERR unknown command: ${commad}\r\n`;            
     }
+}
+
+export function resetStore(){
+    store.clear();
 }

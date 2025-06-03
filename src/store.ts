@@ -33,6 +33,10 @@ export class MemoryStore {
     return this.store.delete(key) ? 1 : 0;
   }
 
+  clear(){
+    this.store.clear();
+  }
+
   exists(key: string): number {
     const value = this.get(key);
     return value !== null ? 1 : 0;
@@ -45,4 +49,13 @@ export class MemoryStore {
     this.set(key, next.toString());
     return next.toString();
   }
+  keys(): string[] {
+  const validKeys: string[] = [];
+  for (const [key, entry] of this.store.entries()) {
+    if (!entry.expiresAt || Date.now() <= entry.expiresAt) {
+      validKeys.push(key);
+    }
+  }
+  return validKeys;
+}
 }
