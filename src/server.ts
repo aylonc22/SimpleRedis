@@ -1,6 +1,6 @@
 import net from 'net';
 import { parseRESP } from './parser';
-import { _saveSnapshot, handleCommand } from './commands';
+import { _loadSnapshot, _saveSnapshot, handleCommand } from './commands';
 
 const PORT = 6379;
 
@@ -41,6 +41,7 @@ const server = net.createServer((socket) => {
 });
 
 server.listen(PORT, () => {
+    _loadSnapshot();
   console.log(`SimpleRedis server listening on port ${PORT}`);
 });
 
