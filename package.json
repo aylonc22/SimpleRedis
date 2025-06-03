@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/server.ts",
+    "ui": "ts-node src/browser/webServer.ts",
     "build": "tsc",
     "test": "vitest"
   },

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimpleRedis Playground</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    textarea, input { width: 100%; margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <h1>SimpleRedis UI</h1>
+  <input type="text" id="command" placeholder="Enter command (e.g., SET foo bar)">
+  <button onclick="send()">Send</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function send() {
+      const command = document.getElementById('command').value;
+      const res = await fetch('/command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command })
+      });
+      const text = await res.text();
+      document.getElementById('output').textContent = text;
+    }
+  </script>
+</body>
+</html>
