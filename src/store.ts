@@ -7,6 +7,14 @@ type ValueEntry = {
 
 export class MemoryStore {
   private store: Map<string, ValueEntry> = new Map();
+  
+  export(): Record<string, ValueEntry> {
+    return Object.fromEntries(this.store);
+  }
+
+  import(data: Record<string, ValueEntry>): void {
+    this.store = new Map(Object.entries(data));
+  }
 
   set(key: string, value: string, ttlSeconds?: number): string {
     const entry: ValueEntry = { value };

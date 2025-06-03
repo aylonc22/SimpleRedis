@@ -1,6 +1,6 @@
 import net from 'net';
 import { parseRESP } from './parser';
-import { handleCommand } from './commands';
+import { _saveSnapshot, handleCommand } from './commands';
 
 const PORT = 6379;
 
@@ -42,4 +42,9 @@ const server = net.createServer((socket) => {
 
 server.listen(PORT, () => {
   console.log(`SimpleRedis server listening on port ${PORT}`);
+});
+
+process.on('SIGINT',()=>{
+    _saveSnapshot();
+    console.log("System Shutdown");
 });

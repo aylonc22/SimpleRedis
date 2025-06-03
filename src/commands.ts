@@ -1,3 +1,4 @@
+import { loadSnapshot, saveSnapshot } from "./persistence";
 import { MemoryStore } from "./store";
 
 const store = new MemoryStore()
@@ -71,4 +72,18 @@ export function handleCommand(args: string[]):string{
 
 export function resetStore(){
     store.clear();
+}
+
+export function _loadSnapshot(){
+    const snapshot = loadSnapshot();
+    
+    if(snapshot){
+        store.import(snapshot);
+        console.log("Snap shot loaded");
+    }
+}
+
+export function _saveSnapshot(){
+    saveSnapshot(store.export());
+    console.log("Snapshot saved");
 }
