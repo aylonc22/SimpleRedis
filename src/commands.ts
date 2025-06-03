@@ -30,6 +30,15 @@ export function handleCommand(args: string[]):string{
             } catch (err) {
                 return '-ERR value is not an integer or out of range\r\n';
             }
+        case 'DECR': 
+            if (args.length < 2) return '-ERR wrong number of arguments for DECR\r\n';
+
+            try {
+                const result = store.decr(args[1]);
+                return `:${result}\r\n`;
+            } catch (err) {
+                return '-ERR value is not an integer or out of range\r\n';
+            }
         case 'KEYS':
             if (args.length !== 2 || args[1] !== '*') {
                 return '-ERR only KEYS * is supported\r\n';

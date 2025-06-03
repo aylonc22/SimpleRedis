@@ -59,6 +59,14 @@ export class MemoryStore {
     return next.toString();
   }
 
+  decr(key: string): string {
+    const current = this.get(key);
+    const num = current ? parseInt(current, 10) : 0;
+    const next = num - 1;
+    this.set(key, next.toString());
+    return next.toString();
+  }
+
   keys(): string[] {
   const validKeys: string[] = [];
   for (const [key, entry] of this.store.entries()) {

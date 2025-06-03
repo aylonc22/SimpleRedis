@@ -46,10 +46,17 @@ describe('handleCommand', () => {
     const res = handleCommand(['GET']);
     expect(res).toBe('-ERR wrong number of arguments for GET\r\n');
   });
+
   it('handles INCR correctly', () => {
   handleCommand(['SET', 'counter', '5']);
   expect(handleCommand(['INCR', 'counter'])).toBe(':6\r\n');
   expect(handleCommand(['GET', 'counter'])).toBe('$1\r\n6\r\n');
+});
+
+ it('handles DECR correctly', () => {
+  handleCommand(['SET', 'counter', '5']);
+  expect(handleCommand(['DECR', 'counter'])).toBe(':4\r\n');
+  expect(handleCommand(['GET', 'counter'])).toBe('$1\r\n4\r\n');
 });
 
 it('handles KEYS * correctly', () => {
