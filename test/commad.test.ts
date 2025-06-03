@@ -55,8 +55,19 @@ describe('handleCommand', () => {
 it('handles KEYS * correctly', () => {
   handleCommand(['SET', 'a', '1']);
   handleCommand(['SET', 'b', '2']);
-  const response = handleCommand(['KEYS', '*']);
-  console.log(response);
+  const response = handleCommand(['KEYS', '*']); 
   expect(response.startsWith('*2\r\n')).toBe(true);
+});
+
+it('EXISTS returns 1 if key exists, 0 otherwise', () => { 
+  handleCommand(['SET', 'foo', 'bar']);
+  expect(handleCommand(['EXISTS', 'foo'])).toBe(':1\r\n');
+  expect(handleCommand(['EXISTS', 'baz'])).toBe(':0\r\n');
+});
+
+it('EXPIRE sets TTL and returns 1, 0 if key missing', () => { 
+  handleCommand(['SET', 'foo', 'bar']);
+  expect(handleCommand(['EXPIRE', 'foo', '2'])).toBe(':1\r\n');
+  expect(handleCommand(['EXPIRE', 'baz', '2'])).toBe(':0\r\n');
 });
 });

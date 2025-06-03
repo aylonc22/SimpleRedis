@@ -42,6 +42,15 @@ export class MemoryStore {
     return value !== null ? 1 : 0;
   }
 
+   expire(key: string, ttlSeconds: number): number {
+    const entry = this.store.get(key);
+    if (!entry) return 0;
+
+    entry.expiresAt = Date.now() + ttlSeconds * 1000;
+    this.store.set(key, entry);
+    return 1;
+  }
+
   incr(key: string): string {
     const current = this.get(key);
     const num = current ? parseInt(current, 10) : 0;
@@ -49,6 +58,7 @@ export class MemoryStore {
     this.set(key, next.toString());
     return next.toString();
   }
+
   keys(): string[] {
   const validKeys: string[] = [];
   for (const [key, entry] of this.store.entries()) {

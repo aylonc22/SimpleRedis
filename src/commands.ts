@@ -43,7 +43,17 @@ export function handleCommand(args: string[]):string{
                 lines.push(`$${key.length}`, key);
             }
             return lines.join('\r\n') + '\r\n';
-        case 'CLEAR':
+        case 'EXISTS':
+            if (args.length < 2) return '-ERR wrong number of arguments for EXISTS\r\n';
+            return `:${store.exists(args[1])}\r\n`;
+
+        case 'EXPIRE':
+        if (args.length < 3) return '-ERR wrong number of arguments for EXPIRE\r\n';
+
+        const seconds = parseInt(args[2], 10);
+        if (isNaN(seconds)) return '-ERR invalid expire time\r\n';
+
+        return `:${store.expire(args[1], seconds)}\r\n`;
 
         default:
           return `-ERR unknown command: ${commad}\r\n`;            
