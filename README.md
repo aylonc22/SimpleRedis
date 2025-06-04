@@ -80,6 +80,13 @@ Unit tests cover individual commands and core components like the parser and in-
 ```
 simple-redis/
 ├── src/
+|   ├──broswer/ # Web playground frontend
+|   |   ├── public/
+|   |   |   ├── docs/
+|   |   |   ├── index.html
+|   |   |   ├── script.js
+|   |   |   ├── style.css
+|   ├   ├── webServer.ts
 │   ├── server.ts           # TCP server entry
 │   ├── parser.ts           # RESP parser
 │   ├── commands/           # Command implementations
