@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TTL Command - SimpleRedis Docs</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <main class="playground">
+    <h1>TTL</h1>
+    <p><strong>Description:</strong> Returns the remaining time to live of a key that has a timeout.</p>
+    <p><strong>Return values:</strong></p>
+    <ul>
+      <li><code>-2</code> if the key does not exist.</li>
+      <li><code>-1</code> if the key exists but has no expiration.</li>
+      <li><code>&gt;= 0</code> remaining time to live in seconds.</li>
+    </ul>
+    <pre>
+> SET mykey hello
++OK
+> EXPIRE mykey 10
+:1
+> TTL mykey
+:9
+    </pre>
+    <a href="../index.html">← Back to Playground</a>
+  </main>
+  <script src="../script.js"></script>
+</body>
+</html>

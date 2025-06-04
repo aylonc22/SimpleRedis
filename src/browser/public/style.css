@@ -69,3 +69,38 @@ pre {
   border: 1px solid #444;
   white-space: pre-wrap;
 }
+.history-table {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #1e1e1e;
+  color: #ddd;
+}
+
+.history-table td {
+  padding: 8px;
+  border-top: 1px solid #444;
+  cursor: pointer;
+}
+
+.history-entry:hover {
+  background-color: #333;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #666;
+}
+

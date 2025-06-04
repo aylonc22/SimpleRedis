@@ -16,6 +16,7 @@
         <li><a href="docs/set.html">SET</a></li>
         <li><a href="docs/get.html">GET</a></li>
         <li><a href="docs/exists.html">EXISTS</a></li>
+        <li><a href="docs/ttl.html">TTL</a></li>
         <li><a href="docs/incr.html">INCR</a></li>
         <li><a href="docs/decr.html">DECR</a></li>
         <li><a href="docs/expire.html">EXPIRE</a></li>
@@ -27,6 +28,13 @@
       <textarea id="commandInput" placeholder="Type command here..."></textarea>
       <button onclick="sendCommand()">Send</button>
       <pre id="response"></pre>
+      <section>
+        <h2>Command History</h2>
+        <button onclick="clearHistory()">Clear History</button>
+        <table class="history-table">
+          <tbody id="historyList"></tbody>
+        </table>
+      </section>
     </main>
   </div>
 
