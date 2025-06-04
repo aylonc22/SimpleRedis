@@ -64,7 +64,9 @@ export function handleCommand(args: string[]):string{
         if (isNaN(seconds)) return '-ERR invalid expire time\r\n';
 
         return `:${store.expire(args[1], seconds)}\r\n`;
-
+        case 'TTL':
+            if(args.length < 2) return '-ERR wrong number of arguments for EXISTS\r\n';
+            return `:${store.ttl(args[1])}\r\n`;
         default:
           return `-ERR unknown command: ${commad}\r\n`;            
     }

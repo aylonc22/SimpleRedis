@@ -25,6 +25,15 @@ export class MemoryStore {
     return 'OK';
   }
 
+  ttl(key:string){
+     const entry = this.store.get(key);
+     if(!entry) return -2; // key doesn't exist
+     if (!entry?.expiresAt) return -1; // no expiration
+
+     const ttl = Math.floor((entry?.expiresAt - Date.now()) / 1000);
+     return ttl > 0 ? ttl : -2; // if expired return -2
+  }
+
   get(key: string): string | null {
     const entry = this.store.get(key);
     if (!entry) return null;

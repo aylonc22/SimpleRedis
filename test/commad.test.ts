@@ -77,4 +77,33 @@ it('EXPIRE sets TTL and returns 1, 0 if key missing', () => {
   expect(handleCommand(['EXPIRE', 'foo', '2'])).toBe(':1\r\n');
   expect(handleCommand(['EXPIRE', 'baz', '2'])).toBe(':0\r\n');
 });
+
+it('TTL returns -2 for nonexistent key', () => {
+  expect(handleCommand(['TTL', 'missing'])).toBe(':-2\r\n');
+});
+
+it('TTL returns -1 for key without expiration', () => {
+  handleCommand(['SET', 'foo', 'bar']);
+  expect(handleCommand(['TTL', 'foo'])).toBe(':-1\r\n');
+});
+
+it('TTL returns positive number for key with expiration', async () => {
+  handleCommand(['SET', 'foo', 'bar']);
+  handleCommand(['EXPIRE', 'foo', '5']);
+  const ttlResponse = handleCommand(['TTL', 'foo']);
+  const ttl = parseInt(ttlResponse.slice(1).trim()); // remove ':' and whitespace
+  expect(ttl).toBeGreaterThan(0);
+  expect(ttl).toBeLessThanOrEqual(5);
+});
+
+it('TTL returns -2 after key expired', async () => {
+  handleCommand(['SET', 'foo', 'bar']);
+  handleCommand(['EXPIRE', 'foo', '1']); // expire after 1 second
+
+  // wait for 2 seconds to ensure expiration
+  await new Promise((r) => setTimeout(r, 2100));
+
+  expect(handleCommand(['TTL', 'foo'])).toBe(':-2\r\n');
+  expect(handleCommand(['GET', 'foo'])).toBe('$-1\r\n');
+});
 });
